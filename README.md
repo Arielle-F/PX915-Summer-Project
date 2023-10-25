@@ -1,5 +1,12 @@
 # PX915-Summer-Project
 
+- To run CP2K on the hetmathsys nodes, you will need to build it. Alternatively you can use the precompiled version on Avon.
+- Once you have built it, all relevant input files can found in the rep_res directiory. In each of the three calculation directories (Ag, PFOMA, and PFOMA_Ag) you will need to run the command:
+  ```bash
+  ../cp2k/exe/local/cp2k.popt -i PFOMA.inp -o output.out
+  ```
+  The total energies for each calculation should then be found in the output.out files, and can be inputted into the jupyter notebook to calculate the formation energy.
+
 ## Building CP2K (cp2k-2023.2) in Oct. 2023, Rocky 9, SCRTP
 
 Get the source code:
