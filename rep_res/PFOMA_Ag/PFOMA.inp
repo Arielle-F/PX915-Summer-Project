@@ -1,0 +1,102 @@
+&GLOBAL
+  PROJECT PFOMA_test
+  RUN_TYPE ENERGY
+  PRINT_LEVEL LOW
+&END GLOBAL
+
+&FORCE_EVAL
+  METHOD Quickstep
+  &SUBSYS
+
+    &KIND F
+      ELEMENT	F
+      BASIS_SET SZV-MOLOPT-GTH-q7 
+      POTENTIAL GTH-PBE-q7
+    &END KIND
+
+    &KIND C
+      ELEMENT	C
+      BASIS_SET SZV-MOLOPT-GTH-q4
+      POTENTIAL GTH-PBE-q4
+    &END KIND
+
+    &KIND H
+      ELEMENT	H
+      BASIS_SET SZV-MOLOPT-GTH-q1
+      POTENTIAL GTH-PBE-q1
+    &END KIND
+
+    &KIND O
+      ELEMENT	O
+      BASIS_SET SZV-MOLOPT-GTH-q6
+      POTENTIAL GTH-PBE-q6
+    &END KIND
+
+    &KIND Ag
+      ELEMENT	Ag
+      BASIS_SET SZV-MOLOPT-SR-GTH-q11
+      POTENTIAL GTH-PBE-q11
+    &END KIND
+
+    &CELL
+      PERIODIC NONE
+      ABC  25    25    25
+    &END CELL
+
+    &TOPOLOGY
+      COORD_FILE_NAME PFOMA_Ag_2.5.xyz
+      COORD_FILE_FORMAT XYZ
+      &CENTER_COORDINATES
+      &END CENTER_COORDINATES
+    &END TOPOLOGY
+  &END SUBSYS
+
+  &DFT
+    LSD 
+    BASIS_SET_FILE_NAME  /rep_res/data/BASIS_MOLOPT
+    BASIS_SET_FILE_NAME  /rep_res/data/BASIS_MOLOPT_UCL
+    POTENTIAL_FILE_NAME  /rep_res/data/POTENTIAL
+    &QS
+      EPS_DEFAULT 1.0E-10
+    &END QS
+    &MGRID
+      NGRIDS 4
+      CUTOFF 200
+      REL_CUTOFF 20
+    &END MGRID
+    
+    &XC
+      &XC_FUNCTIONAL PBE
+      &END XC_FUNCTIONAL
+    &END XC
+
+    &SCF
+      SCF_GUESS ATOMIC
+      EPS_SCF 1.0E-6
+      MAX_SCF 100
+      ADDED_MOS 2
+      &DIAGONALIZATION  ON
+        ALGORITHM STANDARD
+      &END DIAGONALIZATION
+      &MIXING  T
+        METHOD BROYDEN_MIXING
+        ALPHA 0.4
+        NBROYDEN 8
+      &END MIXING
+      &SMEAR
+	WINDOW_SIZE 0.0005
+      &END SMEAR
+    &END SCF
+
+    !Non-periodic system 
+    &POISSON
+      PERIODIC NONE
+      POISSON_SOLVER WAVELET  # always centre your molecule/dimer in the box!
+    &END POISSON
+
+  &END DFT
+  &PRINT
+    &FORCES ON
+    &END FORCES
+  &END PRINT
+&END FORCE_EVAL
