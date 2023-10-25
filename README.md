@@ -1,6 +1,6 @@
 # PX915-Summer-Project
 
-- To run CP2K on the hetmathsys nodes, you will need to build it. Alternatively you can use the precompiled version on Avon.
+- To run CP2K on the hetmathsys nodes, you will need to build it. Alternatively you can use the precompiled version on Avon - if so I can provide a run script.
 - Once you have built it, all relevant input files can found in the rep_res directiory. In each of the three calculation directories (Ag, PFOMA, and PFOMA_Ag) you will need to run the command:
   ```bash
   ../cp2k/exe/local/cp2k.popt -i PFOMA.inp -o output.out
